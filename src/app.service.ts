@@ -7,6 +7,9 @@ export class AppService {
     private readonly smsService: SmsService
   ){}
   async getHello(){
-    return 'Hello World!';
+    return {
+      message:"bem-vindo",
+
+    };
   }
 }
