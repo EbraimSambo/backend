@@ -8,9 +8,9 @@ export const DbConfig: DataSourceOptions = {
     username: 'u151028130_test',
     password: 'Deezycheezy@2',
     database: 'u151028130_test',
-    // entities: ['dist/**/*.entity.js'], //1
-    entities: [User, Appointments],
-    synchronize: true, // 2
+    entities: ['dist/**/*.entity.js'], //1
+    // entities: [User, Appointments],
+    synchronize: false, // 2
     migrations: ['dist/db/migrations/*.js']
 }
 
