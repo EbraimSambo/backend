@@ -1,0 +1,198 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement()) @map("cd_usario")
+  uuid       String      @unique @default(cuid())
+  name       String       @map("nome")
+  email      String      @unique
+  password   String      @map("senha")
+  permission Permission? 
+
+  appointments Appointments[]
+  createdAt    DateTime        @default(now()) @map("data_criacao")
+  updatedAt    DateTime        @updatedAt @map("data_adapatacao")
+
+  @@map("usuarios")
+}
+
+model Permission {
+  id           Int     @id @default(autoincrement()) @map("cd_permissao")
+  desctription String? @map("descricao")
+  code         String  @unique @map("dcodigo_permissao")
+  type         Role @map("tipo_permissao")
+  userId       Int     @unique @map("cd_usuario")
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("permissoes")
+}
+
+model Client {
+  id      Int      @id @default(autoincrement()) @unique @map("cd_client")
+  uuid    String   @unique @default(cuid())
+  phone   String  @unique @map("telefone")
+  optionalPhone   String @map("optional_telefone")
+  email   String   @unique
+  address Address?
+
+  annex Annex[]
+  sales Sale[]
+
+  @@map("clientes")
+}
+
+model Address {
+  id           Int     @id @default(autoincrement()) @unique @map("cd_enderco")
+  country      String  @default("Angola") @map("pais")
+  street       String? @map("rua")
+  neighborhood String? @map("bairro")
+  municipality String? @map("municipio")
+  houseNumber  String? @map("numero_de_casa")
+  clientId     Int     @unique @map("cd_cliente")
+  client       Client  @relation(fields: [clientId], references: [id], onDelete: Cascade) 
+  province     String  @default("Luanda") @map("provincia")
+
+  @@map("endereco")
+}
+
+model Annex {
+  id       Int    @id @default(autoincrement()) @map("cd_anexo")
+  name     String @unique @map("nome")
+  pathName String @unique @map("telefone")
+  type     String @unique @map("tipo")
+
+  userId    Int @unique @map("cd_usuario")
+  user      Client   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())  @map("data_criacao")
+
+  @@map("anexos")
+}
+
+model Sale {
+  id   Int    @id @default(autoincrement()) @map("cd_venda")
+  uuid String @unique @default(cuid())
+
+  createdAt DateTime @default(now()) @map("data_criacao")
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId  Int @map("cd_cliente")
+
+  propertyId Int @unique @map("cd_imovel")
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  installments Installments[]
+
+  @@map("vendas")
+}
+
+model Installments {
+  id     Int     @id @default(autoincrement())
+  value  Decimal @map("valor")
+  status String @map("estatus")
+  saleId Int @map("cd_venda")
+  sale   Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+
+  @@map("parcelas")
+}
+
+model Project {
+  id          Int     @id @default(autoincrement()) @map("cd_projecto")
+  name        String @map("nome")
+  description String? @map("descricao")
+
+  zone      Zone[]
+  createdAt DateTime @default(now()) @map("data_criacao")
+  updatedAt DateTime @updatedAt @map("data_adapatacao")
+
+  @@map("projectos")
+}
+
+model Zone {
+  id           Int     @id @default(autoincrement()) @map("cd_zona")
+  street       String? @map("rua")
+  neighborhood String? @map("bairro")
+  municipality String? @map("municipio")
+
+  projectId Int  @map("cd_projecto")
+  project   Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  property  Property[]
+
+  @@map("zonas")
+}
+
+model DocModel {
+  id     Int    @id @default(autoincrement()) @map("cd_doc_modelo")
+  text   String @map("texto")
+  body   String @map("corpo")
+  footer String @map("rodape")
+
+  propertyId Int @unique @map("imovel_id")
+  property   Property @relation(fields: [propertyId], references: [id])
+
+  @@map("doc_modelos")
+}
+
+model Property {
+  id           Int     @id @default(autoincrement()) @map("cd_imovel")
+  uuid         String  @unique @default(cuid())
+  sale         Sale[]
+  value        Decimal @map("valor")
+  initValue    Decimal @map("valor_de_entrada")
+  parcel       Decimal @map("parcela")
+  description  String?
+  availability Boolean @default(false)
+
+  zoneId  Int @map("zone_id")
+  project Zone @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+
+  docModel DocModel[]
+
+  createdAt DateTime @default(now()) @map("data_criacao")
+  updatedAt DateTime @updatedAt @map("data_adaptacao")
+
+  @@map("imoveis")
+}
+
+enum Role {
+  boss_rh @map("chefia.rh")
+  analist @map("analista")
+  concelhe_jd @map("conselho_juridico")
+  admin @map("administrador")
+  boss_dcc @map("chefia.dcc")
+  analist_dcc @map("analista.dcc")
+  employee @map("normal")
+}
+
+model Appointments {
+  id   Int    @id @default(autoincrement()) @map("cd_agendamentos")
+  uuid String @unique @default(cuid())
+  name String @map("nome")
+  phone   String @map("telefone")
+  optionalPhone   String? @map("numero_opcional")
+  email   String
+  bi String? @map("bilhete_identidade")
+
+  userId Int @map("cd_usuario")
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  stutus Boolean @default(false) @map("estato")
+  dateVisit String @map("data_visita")
+  visitTime String @map("hora_visita")
+
+  createdAt DateTime @default(now()) @map("data_criacao")
+  updatedAt DateTime @updatedAt @map("data_adaptacao")
+
+  @@map("agendamentos")
+}
