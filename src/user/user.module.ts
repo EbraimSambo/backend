@@ -11,6 +11,8 @@ import { UserReadService } from './services/user-read/user-read.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Appointments } from 'src/appointments/entities/appointments.entity';
+import { UserCreateResolver } from './resolvers/user-create/user-create.resolver';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   controllers: [UserController, UserCreateController, UserReadController],
@@ -20,10 +22,12 @@ import { Appointments } from 'src/appointments/entities/appointments.entity';
     UserCreateService, 
     UserReadService, 
     UserRepository,
+    JwtService,
     {
       provide: 'IUserRepository',
       useExisting: UserRepository
     },
+    UserCreateResolver,
   ],
   imports: [TypeOrmModule.forFeature([User, Appointments])]
 })

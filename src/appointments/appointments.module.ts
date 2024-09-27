@@ -8,6 +8,7 @@ import { SmsService } from 'src/sms/sms.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { Appointments } from './entities/appointments.entity';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   providers: [
@@ -15,7 +16,8 @@ import { Appointments } from './entities/appointments.entity';
     AppointmentsRepository,
     UserReadService, 
     UserRepository, 
-    SmsService
+    SmsService,
+    JwtService
   ],
   controllers: [
     AppointmentsCreateController, 

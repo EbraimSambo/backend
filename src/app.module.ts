@@ -11,6 +11,7 @@ import { SmsService } from './sms/sms.service';
 import { GraphqlModule } from './graphql/graphql.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbConfig } from 'db/datasource';
+import { ApiModule } from './api/api.module';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { DbConfig } from 'db/datasource';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(DbConfig),
-    UserModule, AuthModule, DatabaseModule, AppointmentsModule, SmsModule, GraphqlModule],
+    UserModule, AuthModule, DatabaseModule, AppointmentsModule, SmsModule, GraphqlModule, ApiModule],
   controllers: [AppController],
   providers: [AppService, SmsService],
 })
