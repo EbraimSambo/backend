@@ -18,14 +18,43 @@ export class AppointmentsRepository implements IAppointmentsRepo {
 
         const { name, bi, dateVisit, email, phone, visitTime } = values
 
-        return await this.typeOrm.save({
-            email,
-            name,
-            phone,
-            bi,
-            visitTime,
-            dateVisit,
-            userId,
-        })
+        try {
+            
+            return await this.typeOrm.save({
+                email,
+                name,
+                phone,
+                bi,
+                visitTime,
+                dateVisit,
+                userId,
+            })
+
+        } catch (error) {
+            throw new Error("Alguma coisa correu mal")
+        }
+
+    }
+
+
+    async findAll(): Promise<Appointments[]> {
+        try {
+            return await this.typeOrm.find()
+
+        } catch (error) {
+            throw new Error("Alguma coisa correu mal")
+        }
+    }
+
+    async findOneById(id: string): Promise<Appointments> {
+
+        try {
+            return await this.typeOrm.findOne({
+                where: { uuid: id }
+            })
+        } catch (error) {
+            throw new Error("Alguma coisa correu mal")
+        }
+
     }
 }

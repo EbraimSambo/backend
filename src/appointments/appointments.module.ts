@@ -9,6 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { Appointments } from './entities/appointments.entity';
 import { JwtService } from '@nestjs/jwt';
+import { AppointmentsReadService } from './services/appointments-read/appointments-read.service';
+import { AppointmentsReadController } from './controllers/appointments-read/appointments-read.controller';
 
 @Module({
   providers: [
@@ -17,10 +19,12 @@ import { JwtService } from '@nestjs/jwt';
     UserReadService, 
     UserRepository, 
     SmsService,
-    JwtService
+    JwtService,
+    AppointmentsReadService
   ],
   controllers: [
-    AppointmentsCreateController, 
+    AppointmentsCreateController,
+    AppointmentsReadController, 
   ],
   imports:[
     TypeOrmModule.forFeature([User, Appointments]),
