@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { IUserRepo } from "../interfaces";
 import { UserCreateProps, UserCreateResult } from "../types";
-import { User } from "../entities/user.entity";
 import { hash } from "bcryptjs";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { User } from "../entities/user.entity";
 
 
 

@@ -1,11 +1,11 @@
-import { Field, ID } from "@nestjs/graphql"
+import { Field, ID, Int } from "@nestjs/graphql"
 import { Appointments } from "src/appointments/entities/appointments.entity"
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity("usuarios")
 export class User {
 
-    @Field(() => ID)
+    @Field(() => Int)
     @PrimaryGeneratedColumn()
     id: number
 
