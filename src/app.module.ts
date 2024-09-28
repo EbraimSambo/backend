@@ -12,6 +12,7 @@ import { GraphqlModule } from './graphql/graphql.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbConfig } from 'db/datasource';
 import { ApiModule } from './api/api.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { ApiModule } from './api/api.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(DbConfig),
-    UserModule, AuthModule, DatabaseModule, AppointmentsModule, SmsModule, GraphqlModule, ApiModule],
+    UserModule, AuthModule, DatabaseModule, AppointmentsModule, SmsModule, GraphqlModule, ApiModule, ProjectsModule],
   controllers: [AppController],
   providers: [AppService, SmsService],
 })

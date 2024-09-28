@@ -30,4 +30,5 @@ import { AppointmentsReadController } from './controllers/appointments-read/appo
     TypeOrmModule.forFeature([User, Appointments]),
   ]
 })
+
 export class AppointmentsModule {}
