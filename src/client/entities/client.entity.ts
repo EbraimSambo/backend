@@ -1,5 +1,6 @@
 import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { Address } from "./address.entity"
+import { Annex } from "./annex.entity"
 
 @Entity("clientes")
 export class Client {
@@ -30,4 +31,7 @@ export class Client {
 
     @OneToOne(() => Address, (address) => address.client)
     address: Address
+
+    @OneToMany(() => Annex, (annex) => annex.client)
+    annex: Annex[]
 }

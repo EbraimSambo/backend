@@ -11,10 +11,8 @@ export class Project {
     @Column({name: "nome_projecto"})
     name: string
 
-    @Column({name: "descriacao"})
-    description: string
-
- 
+    @Column({name: "descriacao", nullable: true})
+    description?: string
 
     @CreateDateColumn({name: "data_criacao"})
     createdAt: Date 

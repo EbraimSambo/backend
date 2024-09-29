@@ -1,5 +1,6 @@
 import { Project } from "src/projects/entities/project.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Property } from "./property.entity";
 
 @Entity("zonas")
 export class Zone {
@@ -17,4 +18,7 @@ export class Zone {
 
     @OneToMany(() => Project, (project) => project.zone)
     project: Project[]
+
+    @OneToMany(() => Property, (property) => property.zone)
+    property: Property[]
 }

@@ -21,6 +21,9 @@ export class Appointments {
     @Column({name: 'telefone'})
     phone: string
 
+    @Column({name: 'estatuto', type: "boolean", default: false})
+    status?: boolean
+
     @Column({name: 'data_visita'})
     dateVisit: string
 
@@ -29,4 +32,5 @@ export class Appointments {
 
     @ManyToOne(() => User, (user) => user.appointments)
     user: User;
+    
 }
