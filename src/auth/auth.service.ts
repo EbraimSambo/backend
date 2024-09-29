@@ -3,6 +3,7 @@ import { UserReadService } from 'src/user/services/user-read/user-read.service';
 import { LoginDto } from './dtos/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcryptjs';
+import { JWT_REFRESH_TOKEN_KEY, JWT_SECRET_KEY } from './constants/index.contant';
 
 @Injectable()
 export class AuthService {
@@ -30,11 +31,11 @@ export class AuthService {
             backendTokens: {
               accessToken: await this.jwtService.signAsync(payload, {
                 expiresIn: '20s',
-                secret: process.env.JWT_SECRET_KEY,
+                secret: JWT_SECRET_KEY,
               }),
               refreshToken: await this.jwtService.signAsync(payload, {
                 expiresIn: '7d',
-                secret: process.env.JWT_REFRESH_TOKEN_KEY,
+                secret: JWT_REFRESH_TOKEN_KEY,
               }),
               expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
             },
@@ -53,11 +54,11 @@ export class AuthService {
         return {
           accessToken: await this.jwtService.signAsync(payload, {
             expiresIn: '20s',
-            secret: process.env.JWT_SECRET_KEY,
+            secret: JWT_SECRET_KEY,
           }),
           refreshToken: await this.jwtService.signAsync(payload, {
             expiresIn: '7d',
-            secret: process.env.JWT_REFRESH_TOKEN_KEY,
+            secret: JWT_REFRESH_TOKEN_KEY,
           }),
           expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
         };
