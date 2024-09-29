@@ -66,9 +66,9 @@ export class AuthService {
       async validateUser(dto: LoginDto) {
         const user = await this.userService.findUserEmail(dto.email);
     
-        if(!user) throw new UnauthorizedException("Emial errado");
+        if(!user) throw new UnauthorizedException("O email inserido não foi cadastrado, tente novamente");
 
-        if(!await compare(dto.password, user.password)) throw new UnauthorizedException("Palavrapasse Errada")
+        if(!await compare(dto.password, user.password)) throw new UnauthorizedException("A senha inserida não é conpativel com email")
 
           const { password, ...result } = user;
 

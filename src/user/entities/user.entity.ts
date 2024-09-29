@@ -1,6 +1,7 @@
 import { Field, ID } from "@nestjs/graphql"
+import { hash } from "bcryptjs"
 import { Appointments } from "src/appointments/entities/appointments.entity"
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 @Entity("usuarios")
 export class User {
@@ -26,14 +27,21 @@ export class User {
     password: string
 
     @Field()
-    @Column({name: "data_criacao"})
+    @CreateDateColumn({name: "data_criacao"})
     createdAt: Date 
 
     @Field()
-    @Column({name: "data_adaptacao"})
+    @UpdateDateColumn({name: "data_adaptacao"})
     updatedAt: Date 
 
     @Field(()=>[Appointments], {nullable: 'itemsAndList',  })
     @OneToMany(() => Appointments, (appointment) => appointment.user)
     appointments: Appointments[]
+
+    @BeforeInsert()
+    async hashPassword() {
+      if (this.password) {
+        this.password = await hash(this.password, 14);
+      }
+    }
 }

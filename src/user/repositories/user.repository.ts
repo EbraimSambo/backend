@@ -22,6 +22,7 @@ export class UserRepository implements IUserRepo {
                 email: values.email,
                 password: await hash(values.password, 14),
                 name: values.name
+                
         })
 
         const { email, createdAt, id, password, uuid, name } = newUser
