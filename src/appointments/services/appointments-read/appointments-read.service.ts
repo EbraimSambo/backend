@@ -1,4 +1,4 @@
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { AppointmentsRepository } from 'src/appointments/repositories/appointments.repository';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class AppointmentsReadService {
 
         const appointment = await this.appointmentsRepo.findOneById(id)
 
-        if(!appointment) throw new NotAcceptableException("Agendamento não encontrado")
+        if(!appointment) throw new NotFoundException("Agendamento não encontrado")
             
         return appointment
     }
