@@ -39,7 +39,11 @@ export class AppointmentsRepository implements IAppointmentsRepo {
 
     async findAll(): Promise<Appointments[]> {
         try {
-            return await this.typeOrm.find()
+            return await this.typeOrm.find({
+                order: {
+                    id: 'desc'
+                }
+            })
 
         } catch (error) {
             throw new Error("Alguma coisa correu mal")
