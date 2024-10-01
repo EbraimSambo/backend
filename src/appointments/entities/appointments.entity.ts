@@ -13,10 +13,11 @@ export class Appointments {
     @Column({name: 'nome'})
     name: string
 
-    email: string
+    @Column({nullable: true})
+    email?: string
 
-    @Column({name: 'bilhete_identidade'})
-    bi: string
+    @Column({name: 'bilhete_identidade', nullable: true})
+    bi?: string
 
     @Column({name: 'telefone'})
     phone: string

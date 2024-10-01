@@ -8,6 +8,9 @@ export class Project {
     @PrimaryGeneratedColumn()
     id: number
 
+    @PrimaryGeneratedColumn('uuid')
+    uuid: string
+
     @Column({name: "nome_projecto"})
     name: string
 

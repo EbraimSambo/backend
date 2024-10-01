@@ -12,25 +12,26 @@ import { DataSource, DataSourceOptions } from "typeorm"
 
 export const DbConfig: DataSourceOptions = {
     type: 'mysql',
-    host: 'srv1672.hstgr.io',
-    username: 'u151028130_test2',
-    password: 'Deezycheezy@2',
-    database: 'u151028130_test2',
-    entities: ['dist/**/*.entity.js'], //1
-    // entities: [
-    //     User, 
-    //     Appointments, 
-    //     Project, 
-    //     Zone,
-    //     Client,
-    //     Address,
-    //     Annex,
-    //     Property,
-    //     Address,
-    //     Installments,
-    //     Sale
-    // ],
-    synchronize: false, // 2
+    host: 'localhost',
+    username: 'root',
+    password: '',
+    database: 'u151028130_test',
+    port: 3306,
+    // entities: ['dist/**/*.entity.js'], //1
+    entities: [
+        User, 
+        Appointments, 
+        Project, 
+        Zone,
+        Client,
+        Address,
+        Annex,
+        Property,
+        Address,
+        Installments,
+        Sale
+    ],
+    synchronize: true, // 2
     migrations: ['dist/db/migrations/*.js']
 }
 

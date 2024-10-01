@@ -14,14 +14,17 @@ export class Client {
     @Column({name: "nome"})
     name: string
 
-    @Column()
-    email: string
+    @Column({nullable: true})
+    email?: string
 
     @Column({name: "telefone"})
     phone: string
 
     @Column({name: "telefone_opcional"})
-    optionalPhone: string
+    optionalPhone?: string
+
+    @Column({name: "bilhete", unique: true})
+    bi?: string
 
     @CreateDateColumn({name: "data_criacao"})
     createdAt: Date 

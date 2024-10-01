@@ -12,20 +12,20 @@ export class Address{
     @PrimaryGeneratedColumn('uuid')
     uuid: string
 
-    @Column({name: "pais", default: "Angola"})
-    country: string
+    @Column({name: "pais", default: "Angola", nullable: true})
+    country?: string
 
     @Column({name: "rua", nullable: true})
-    street: string
+    street?: string
 
     @Column({name: "municipio", nullable: true})
-    municipality: string
+    municipality?: string
 
     @Column({name: "numero_casa", nullable: true})
-    houseNumber: string
+    houseNumber?: string
 
-    @Column({name: "pronvicia", default: "Luanda"})
-    province: string
+    @Column({name: "pronvicia", default: "Luanda", nullable: true})
+    province?: string
 
     @OneToOne(() => Client, (client) => client.address)
     client: Client

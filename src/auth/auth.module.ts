@@ -4,7 +4,6 @@ import { AuthController } from './auth.controller';
 import { UserReadService } from 'src/user/services/user-read/user-read.service';
 import { UserRepository } from 'src/user/repositories/user.repository';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { DatabaseService } from 'src/database/database.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { Appointments } from 'src/appointments/entities/appointments.entity';
@@ -15,7 +14,6 @@ import { Appointments } from 'src/appointments/entities/appointments.entity';
     AuthService,
     UserReadService,
     JwtService,
-    DatabaseService
   ],
   controllers: [AuthController],
   imports: [

@@ -57,7 +57,7 @@ export class AppointmentsRepository implements IAppointmentsRepo {
                 where: { uuid: id }
             })
         } catch (error) {
-            throw new Error("Alguma coisa correu mal")
+            throw new Error("Alguma coisa correu mal, ao conectar-se com banco de dados")
         }
 
     }
